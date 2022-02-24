@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'ls -la && cd GoSecuriApp && mvn --version && mvn clean && mvn package && mvn install'
+        sh 'cd GoSecuriApp && mvn --version && mvn clean && mvn package && mvn install'
       }
     }
 
