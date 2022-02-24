@@ -9,7 +9,7 @@ pipeline {
 
     stage('Run') {
       steps {
-        sh 'ls -la && cd GoSecuriApp && java -jar target/GoSecuriApp-1.0-SNAPSHOT.jar && ls -la'
+        sh 'cd GoSecuriApp && java -jar target/GoSecuriApp-1.0-SNAPSHOT.jar && ls -la'
         sh 'docker ps'
         
         sh 'cp GoSecuriApp/src/main/java/com/epsi/gosecuri/generatedFiles/.htpasswd   $HOME/gosecuri/'
@@ -23,12 +23,6 @@ pipeline {
     }
 
     stage('Deploy') {
-      agent {
-        docker {
-          image 'gosecuri:latest'
-          args '-u root --privileged'
-        }
-      }
       steps {
         
         sh 'pwd && cat /etc/nginx/conf.d/default.conf'
@@ -37,13 +31,9 @@ pipeline {
           unstash 'generatedFiles'
           unstash 'ressourceFiles'
         }
-        sh 'ls -la'
-        sh 'ls -la  html/GoSecuriApp/src/main/java/com/epsi/gosecuri/generatedFiles/'
         sh 'cp html/GoSecuriApp/src/main/java/com/epsi/gosecuri/generatedFiles/.htpasswd  /usr/share/nginx/html/'
         sh 'cp html/GoSecuriApp/src/main/java/com/epsi/gosecuri/generatedFiles/*  /usr/share/nginx/html/'
         sh 'cp -r html/GoSecuriApp/src/main/java/com/epsi/gosecuri/ressourceFiles/ /usr/share/nginx/html/'
-        sh 'ls -la  /usr/share/nginx/html/'
-        sh 'ls -la  /usr/share/nginx/html/ressourceFiles/'
       }
     }
 
