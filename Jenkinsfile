@@ -25,8 +25,8 @@ pipeline {
     stage('Deploy') {
       steps {
         
-        sh 'pwd && cat /etc/nginx/conf.d/default.conf'
-        //dir('/usr/share/nginx/html'){
+        //sh 'pwd && cat /etc/nginx/conf.d/default.conf'
+        dir('/usr/share/nginx/html'){
         dir('html'){
           unstash 'generatedFiles'
           unstash 'ressourceFiles'
