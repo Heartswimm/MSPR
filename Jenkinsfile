@@ -26,7 +26,7 @@ pipeline {
       steps {
         
         //sh 'pwd && cat /etc/nginx/conf.d/default.conf'
-        dir('/usr/share/nginx/html'){
+        //dir('/usr/share/nginx/html'){
         dir('html'){
           unstash 'generatedFiles'
           unstash 'ressourceFiles'
@@ -34,7 +34,7 @@ pipeline {
         sh 'cp html/GoSecuriApp/src/main/java/com/epsi/gosecuri/generatedFiles/.htpasswd  /usr/share/nginx/html/'
         sh 'cp html/GoSecuriApp/src/main/java/com/epsi/gosecuri/generatedFiles/*  /usr/share/nginx/html/'
         sh 'cp -r html/GoSecuriApp/src/main/java/com/epsi/gosecuri/ressourceFiles/ /usr/share/nginx/html/'
-        }
+        //}
       }
     }
 
